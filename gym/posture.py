@@ -1,9 +1,12 @@
 
+
+
 import json
+import re
 from flask import Blueprint, jsonify, request, current_app
 from . import pose
 from .db import fetch, fetch1, run
-from .posture_rules import analyze, NEED
+from .posture_rules import analyze, NEED, _EXTRA_NEED
 from .security import subscription_required, current_user
 from .util import ApiError, RL
 
@@ -17,11 +20,40 @@ def analyze_photo():
     u = current_user()
     RL.check(f"posture:{u['id']}", 30, 3600)
 
-    # Accept uppercase, lowercase and mixed-case exercise names
-    ex = (request.form.get("exercise") or "").strip().lower()
+    # The UI sends the exact exercise name from Workout Logbook.
+    raw_ex = (request.form.get("exercise") or "").strip()
+    body_part = (request.form.get("body_part") or "").strip().lower()
+    if not raw_ex:
+        raise ApiError(422, "invalid", "Choose an exercise from the selected body-part list.", "exercise")
 
+    import re
+    key = re.sub(r"[^a-z0-9]+", " ", raw_ex.lower()).strip()
+    aliases = {
+        "push up": "pushup", "close grip push up": "close-grip push-up",
+        "pullup": "pull-up", "bent over row": "bent-over row",
+        "single arm dumbbell row": "single-arm dumbbell row",
+        "bicep curl": "biceps curl", "tricep pushdown": "triceps pushdown",
+    }
+    key = aliases.get(key, key)
+    canonical = {re.sub(r"[^a-z0-9]+", " ", name.lower()).strip(): name for name in NEED}
+    ex = canonical.get(key, key)
+
+    # If the Logbook has an additional exercise name, use the selected body-part
+    # family to choose relevant joints and run conservative landmark checks.
     if ex not in NEED:
-        raise ApiError(422, "invalid", "Choose squat, lunge, pushup or plank.", "exercise")
+        family_joints = {
+            "chest": ["shoulder", "elbow", "wrist", "hip"],
+            "back": ["shoulder", "elbow", "wrist", "hip"],
+            "shoulders": ["shoulder", "elbow", "wrist", "hip"],
+            "biceps": ["shoulder", "elbow", "wrist"],
+            "triceps": ["shoulder", "elbow", "wrist"],
+            "legs": ["shoulder", "hip", "knee", "ankle"],
+            "abs": ["shoulder", "hip", "knee", "ankle"],
+        }
+        if body_part not in family_joints:
+            raise ApiError(422, "invalid", "Choose a body part and exercise from Workout Logbook.", "exercise")
+        NEED[ex] = family_joints[body_part]
+        _EXTRA_NEED[ex] = family_joints[body_part]
 
     f = request.files.get("image")
     if not f:
@@ -34,49 +66,33 @@ def analyze_photo():
     if not (data[:3] == b"\xff\xd8\xff" or data[:8] == b"\x89PNG\r\n\x1a\n"):
         raise ApiError(422, "invalid", "Please upload a JPG or PNG photo (PDFs aren't supported - save the photo as JPG).", "image")
 
+    # The photo itself is never stored. Known exercises use their exercise rules;
+    # other Logbook entries use conservative checks for their selected body-part family.
     lms, w, h = pose.detect(data, current_app.config["POSE_MODEL_PATH"])
-    # The photo itself is never stored
-
     res = analyze(ex, lms, w, h)
 
-    sid = run(
-        "INSERT INTO posture_sessions(user_id,exercise,confidence,status,result) VALUES(?,?,?,?,?)",
-        (u["id"], ex, res["confidence"], res["status"], json.dumps(res))
+    # Recommend only videos that match the entered exercise name.
+    has_problem = (
+        res.get("status") != "ok"
+        or any(i.get("severity") == "warn" for i in res.get("issues", []))
     )
+    if has_problem:
+        def words(value):
+            return re.findall(r"[a-z0-9]+", (value or "").lower())
 
-    return jsonify(id=sid, **res)
-
-
-@bp.get("/sessions")
-@subscription_required
-def sessions():
-    rows = fetch(
-        "SELECT id,exercise,confidence,status,result,created_at FROM posture_sessions WHERE user_id=? ORDER BY id DESC LIMIT 50",
-        (current_user()["id"],)
-    )
-
-    for r in rows:
-        r["result"] = json.loads(r["result"])
-        r["result"].pop("overlay", None)
-
-    return jsonify(sessions=rows)
-
-
-@bp.delete("/sessions/<int:sid>")
-@subscription_required
-def del_session(sid):
-    run(
-        "DELETE FROM posture_sessions WHERE id=? AND user_id=?",
-        (sid, current_user()["id"])
-    )
-    return jsonify(ok=True)
-
-
-@bp.delete("/sessions")
-@subscription_required
-def del_all():
-    run(
-        "DELETE FROM posture_sessions WHERE user_id=?",
-        (current_user()["id"],)
-    )
-    return jsonify(ok=True)
+        exercise_words = words(ex)
+        matches = []
+        if exercise_words:
+            for video in fetch("SELECT id,title,category,trainer_name,instructions,thumb FROM videos ORDER BY id DESC"):
+                searchable = set(words(video.get("title", "") + " " + video.get("instructions", "")))
+                if any(word in searchable for word in exercise_words):
+                    matches.append({
+                        "id": video["id"],
+                        "title": video["title"],
+                        "category": video["category"],
+                        "trainer_name": video["trainer_name"],
+                        "has_thumb": bool(video.get("thumb"))
+                    })
+                if len(matches) >= 3:
+                    break
+        res["recommended_videos"] = matches
