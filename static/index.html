@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>(function(){try{var p=localStorage.getItem("fc-theme")||"light",d=p==="dark"||(p==="auto"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.dataset.theme=d?"dark":"light";document.documentElement.dataset.pref=p}catch(e){}})()</script>
 <title>Fit Connect</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&family=Plus+Jakarta+Sans:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -198,10 +199,227 @@ body.is-auth .a3{background:#f9a8d4}body.is-auth .a4{background:#fdba74}
 .tmp{position:absolute;right:0;top:calc(100% + 10px);width:min(310px,calc(100vw - 90px));background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border:1px solid #f3e8ff;border-radius:20px;box-shadow:0 18px 40px rgba(99,102,241,.2);padding:16px;z-index:60}
 .tmp>b{display:block;font-size:15px;color:#1e1b4b}.tmp p{font-size:13px;color:#64748b;margin:6px 0 12px}.tmp a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;margin-top:8px;border-radius:14px;background:linear-gradient(135deg,#f5f3ff,#e0f2fe);text-decoration:none;color:#3730a3;font-size:12px}.tmp a b{font-size:16px}.tmp a.em{background:linear-gradient(135deg,#ffe4e6,#fef3c7);color:#9f1239}
 @media(max-width:560px){.tml{display:none}.tmb{padding:0 8px}}
+
+/* ---- theme picker ---- */
+.thb{border-color:#c7d2fe;background:linear-gradient(135deg,#eef2ff,#e0f2fe);color:#3730a3}.thb .tmi{color:#4f46e5}
+.thp{width:min(260px,calc(100vw - 90px))}.thp b{display:block;margin-bottom:10px;font-size:14px;color:var(--ink)}
+.thopts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.thopt{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px;border-radius:14px;border:1px solid #e0e7ff;background:#fff;color:#334155;font-weight:600;font-size:12.5px}
+.thopt svg{width:20px;height:20px}.thopt.on{border-color:#6366f1;background:#eef2ff;color:#3730a3;box-shadow:0 0 0 2px rgba(99,102,241,.25)}
+.thf{position:fixed;top:14px;right:14px;z-index:75;width:42px;height:42px;border-radius:50%;border:1px solid #c7d2fe;background:rgba(255,255,255,.85);color:#3730a3;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(79,70,229,.18)}.thf svg{width:20px;height:20px}
+.thb:focus-visible,.thopt:focus-visible,.thf:focus-visible{outline:3px solid #a5b4fc;outline-offset:2px}
+
+/* ---- admin Members page ---- */
+.mgh{padding:22px}.mgt{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.mgt h2{font:700 22px 'Plus Jakarta Sans',sans-serif}.mgt h2 span{font-weight:500;color:var(--mu);font-size:16px}
+.mgb{font-size:12px;font-weight:700;padding:4px 12px;border-radius:99px;background:#1e3a5f;color:#fff}
+.mgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.mgs>div{padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.9);box-shadow:0 6px 18px rgba(99,102,241,.08)}
+.mgs b{display:block;font:800 26px 'Plus Jakarta Sans',sans-serif;line-height:1.1}.mgs span{font-size:13px;color:var(--mu)}
+.mgf{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.mgq{position:relative;flex:1;min-width:230px}
+.mgq svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#64748b;pointer-events:none}.mgq input{padding-left:36px;background:rgba(255,255,255,.6)}
+.mgp{display:flex;gap:8px;overflow-x:auto;padding:2px;max-width:100%}.mgp .pill{white-space:nowrap}.mgp .pill.on{background:#1e3a5f;color:#fff;border-color:transparent}.mgn{margin-left:4px;opacity:.7;font-weight:500}
+.mgsec{font:600 15px 'Plus Jakarta Sans',sans-serif;margin:4px 0 10px}
+.mga{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:18px;background:linear-gradient(135deg,#ffedd5,#fef3c7);border:1px solid #fde68a;margin-bottom:10px}
+.mga .mgnm{font-size:15px}.mga .mgr{font-size:14px;margin-top:2px}
+.mgg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+.mgc{padding:16px;border-radius:22px;background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.9);box-shadow:0 10px 28px rgba(99,102,241,.1);display:flex;flex-direction:column;gap:12px}
+.mgc.attn{border-color:#fcd34d}.mgh2{display:flex;gap:12px;align-items:center}
+.mgav{flex:none;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff;background:linear-gradient(135deg,#22d3ee,#6366f1)}
+.mga .mgav{background:linear-gradient(135deg,#fb923c,#f59e0b)}
+.mgid{font-size:12.5px;color:var(--mu)}.mgnm{font:700 16px 'Plus Jakarta Sans',sans-serif}
+.mgi{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e5e7f5;border-bottom:1px solid #e5e7f5}
+.mgi>div{padding:8px 4px 8px 0;font-size:12.5px;color:var(--mu)}.mgi>div:nth-child(even){padding-left:12px;border-left:1px solid #e5e7f5}.mgi>div:nth-child(n+3){border-top:1px solid #e5e7f5}.mgi b{display:block;color:var(--ink);font-size:14px;margin-top:2px}
+.mgm{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.mgm>div{padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.9);font-size:12px;color:var(--mu)}.mgm b{display:block;font-size:16px;color:var(--ink)}
+.mgv{width:100%;padding:11px;border-radius:12px;background:linear-gradient(90deg,#14b8a6,#6366f1);color:#fff;font-weight:600;font-size:14px}
+.mgd{border:2px solid #6366f1}.mgk{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px 18px;margin:12px 0}.mgk div{font-size:12.5px;color:var(--mu)}.mgk b{display:block;color:var(--ink);font-size:14px;margin-top:2px;word-break:break-word}
+.mgempty{padding:26px;text-align:center;color:var(--mu);font-size:14px}
+/* ---- workout compare ---- */
+.cmpsel{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 12px}.cmph{margin:16px 0 6px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif}.dlt{white-space:nowrap}
+
+/* ---- dark theme (generated from the light theme) ---- */
+html[data-theme="dark"] body{background:#0e0920}
+html[data-theme="dark"] .aurora{background:#0e0920}
+html[data-theme="dark"] .aurora i:nth-child(1){background:#422c14}
+html[data-theme="dark"] .aurora i:nth-child(2){background:#154045}
+html[data-theme="dark"] .aurora i:nth-child(3){background:#140e2f}
+html[data-theme="dark"] .aurora i:nth-child(4){background:#330f14}
+html[data-theme="dark"] .top{background:rgba(19,19,19,.82);border-bottom:1px solid #2b1a57}
+html[data-theme="dark"] .mode{background:#110c27;color:#b28eeb}
+html[data-theme="dark"] .mode.ad{background:#2f210e;color:#f3b29d}
+html[data-theme="dark"] .avb{color:#ffffff}
+html[data-theme="dark"] .pop{background:#131313;border:1px solid #43314c}
+html[data-theme="dark"] .pop hr{border-top:1px solid #422d4a}
+html[data-theme="dark"] .so{color:#aab3c2}
+html[data-theme="dark"] .so:hover{color:#f489a3}
+html[data-theme="dark"] .tab:hover{background:#131313}
+html[data-theme="dark"] .tab.on{background:linear-gradient(135deg,#2f210e,#321024 55%,#140e2f);color:#f3bfad}
+html[data-theme="dark"] .card{background:rgba(19,19,19,.82)}
+html[data-theme="dark"] .card::before{background:linear-gradient(90deg,#f97316,#5b1b25 35%,#8b5cf6 70%,#06b6d4)}
+html[data-theme="dark"] .hero{background:linear-gradient(120deg,#422c14,#330f14 42%,#140e2f 75%,#154045)}
+html[data-theme="dark"] .hero::after{background:rgba(19,19,19,.35)}
+html[data-theme="dark"] .ringx{background:conic-gradient(#f97316 0 var(--p),rgba(19,19,19,.85) 0)}
+html[data-theme="dark"] .ringx div{background:#21140a}
+html[data-theme="dark"] .type{color:#c7d0dd}
+html[data-theme="dark"] .btn{color:#ffffff}
+html[data-theme="dark"] .btn.alt{background:#131313;border:1px solid #2f205a}
+html[data-theme="dark"] .tile{border:1px solid rgba(51,51,51,.9)}
+html[data-theme="dark"] .tile span{color:#c7d0dd}
+html[data-theme="dark"] .ti{color:#ffffff}
+html[data-theme="dark"] .c-or{background:linear-gradient(135deg,#2f210e,#2f190e)}
+html[data-theme="dark"] .c-cy{background:linear-gradient(135deg,#0f2f32,#0d1f2b)}
+html[data-theme="dark"] .c-pu{background:linear-gradient(135deg,#110c27,#190c27)}
+html[data-theme="dark"] .c-pu .ti{background:linear-gradient(135deg,#261851,#7c3aed)}
+html[data-theme="dark"] .c-pe{background:linear-gradient(135deg,#2b150d,#290c0e)}
+html[data-theme="dark"] .c-pe .ti{background:linear-gradient(135deg,#5b1b25,#e11d48)}
+html[data-theme="dark"] .c-la{background:linear-gradient(135deg,#190c27,#0d132b)}
+html[data-theme="dark"] .c-la .ti{background:linear-gradient(135deg,#361953,#6366f1)}
+html[data-theme="dark"] label.f{color:#c7d0dd}
+html[data-theme="dark"] input[type=text],html[data-theme="dark"] input[type=number],html[data-theme="dark"] input[type=date],html[data-theme="dark"] input[type=email],html[data-theme="dark"] input[type=password],html[data-theme="dark"] select,html[data-theme="dark"] textarea{border:1px solid #372f53;background:#131313}
+html[data-theme="dark"] input:focus,html[data-theme="dark"] select:focus,html[data-theme="dark"] textarea:focus{outline:2px solid #223072}
+html[data-theme="dark"] .pill{background:rgba(19,19,19,.88);border:1px solid #2f2257;color:#c7d0dd}
+html[data-theme="dark"] .pill.on{color:#ffffff}
+html[data-theme="dark"] .tag{color:#b28eeb;background:#110c27}
+html[data-theme="dark"] .ok{background:#0f2d19;color:#bbf0cf}
+html[data-theme="dark"] .wn{background:#362e10;color:#f6c1a1}
+html[data-theme="dark"] .ex2{background:#290c0e;color:#f49ab3}
+html[data-theme="dark"] .dm{background:#110c27;color:#b28eeb}
+html[data-theme="dark"] .xc{background:#131313}
+html[data-theme="dark"] .mc1{background:#2f210e;color:#f3b29d}
+html[data-theme="dark"] .mc2{background:#110c27;color:#b28eeb}
+html[data-theme="dark"] .mdiag{background:#131313}
+html[data-theme="dark"] .legend{color:#c7d0dd}
+html[data-theme="dark"] .setrow{border-bottom:1px solid #36284d}
+html[data-theme="dark"] .gl{background:rgba(19,19,19,.85)}
+html[data-theme="dark"] .gl b{background:linear-gradient(#154045,#06b6d4)}
+html[data-theme="dark"] .emo button{background:#131313}
+html[data-theme="dark"] .emo button.on{background:#362e10}
+html[data-theme="dark"] .vc{background:rgba(19,19,19,.9)}
+html[data-theme="dark"] .pl i{background:rgba(19,19,19,.92)}
+html[data-theme="dark"] .bars div span{color:#c7d0dd}
+html[data-theme="dark"] td,html[data-theme="dark"] th{border-bottom:1px solid #36284d}
+html[data-theme="dark"] .mu2{background:#2f190e}
+html[data-theme="dark"] .me2{background:#110c27}
+html[data-theme="dark"] #toast{background:#131313;border:1px solid #43314c}
+html[data-theme="dark"] .t1{background:linear-gradient(135deg,#593b1b,#45151b)}
+html[data-theme="dark"] .t2{background:linear-gradient(135deg,#1b123e,#67e8f9)}
+html[data-theme="dark"] /* ---------- Light blue aurora + gym backdrop (login screen only) ---------- */
+#aurora{background:linear-gradient(135deg,#0a1320 0%,#0e0a23 55%,#23140a 100%)}
+html[data-theme="dark"] .a2{background:#261851}
+html[data-theme="dark"] .a3{background:#5c1e3e}
+html[data-theme="dark"] /* login: everything soft blue */
+body.is-auth #aurora{background:linear-gradient(180deg,#0a1423,#0d1a2a 60%,#0d1f29)}
+html[data-theme="dark"] body.is-auth .a1{background:#17304c}
+html[data-theme="dark"] body.is-auth .a2{background:#1a4256}
+html[data-theme="dark"] body.is-auth .a3{background:#112339}
+html[data-theme="dark"] body.is-auth .a4{background:#154045}
+html[data-theme="dark"] /* ---------- Glass login card ---------- */
+.authcard{background:#131313eb;border:1px solid #333333}
+html[data-theme="dark"] .authcard h1{color:#bfd2f5}
+html[data-theme="dark"] body.is-auth .authcard .sub{color:#abbad3}
+html[data-theme="dark"] .authcard .fxpills span{background:#0c1627cc;border:1px solid #333333;color:#7b99ed}
+html[data-theme="dark"] .authcard .tabs2{background:#0c1627}
+html[data-theme="dark"] .authcard .tabs2 button{color:#a4b0c7}
+html[data-theme="dark"] .authcard .tabs2 button.on{background:#131313;color:#7b99ed}
+html[data-theme="dark"] .authcard input,html[data-theme="dark"] .authcard select{border-color:#2d3d58;background:#131313}
+html[data-theme="dark"] .fxeye:hover{background:#0c1627}
+html[data-theme="dark"] .authcard .btn.alt{background:#131313;color:#7b99ed;border:1px solid #2d3d58}
+html[data-theme="dark"] .fxhero{color:#bfd2f5}
+html[data-theme="dark"] .fxeyebrow{background:#13131399;border:1px solid #333333;color:#7b99ed}
+html[data-theme="dark"] .fxhero h2{color:#bfd2f5}
+html[data-theme="dark"] .fxhero h2 em::after{background:linear-gradient(90deg,#60a5fa,#112339)}
+html[data-theme="dark"] .fxhero p{color:#acbdda}
+html[data-theme="dark"] .fxfeat span{background:#131313a6;border:1px solid #333333;color:#b6c9eb}
+html[data-theme="dark"] /* ---------- Colourful theme (login) ---------- */
+body.is-auth #aurora{background:linear-gradient(135deg,#0c1928 0%,#160b26 50%,#26130b 100%)}
+html[data-theme="dark"] body.is-auth .a2{background:#361953}
+html[data-theme="dark"] body.is-auth .a3{background:#44152f}
+html[data-theme="dark"] body.is-auth .a4{background:#593b1b}
+html[data-theme="dark"] .authcard .tabs2{background:linear-gradient(90deg,#0d1f2b,#110c27,#270e1c)}
+html[data-theme="dark"] .fxeyebrow{background:linear-gradient(90deg,#131313cc,#210d18cc);color:#f089b4;border-color:#602044}
+html[data-theme="dark"] .fxhero h2{color:#cdcaec}
+html[data-theme="dark"] .fxhero p{color:#acb2d3}
+html[data-theme="dark"] .fxfeat span{background:#131313b8;border-color:#333333;color:#cdcaec}
+html[data-theme="dark"] .authcard .fxpills span{background:#0e0a23cc}
+html[data-theme="dark"] .login{background:#0b1726}
+html[data-theme="dark"] .err{color:#ee8c8c}
+html[data-theme="dark"] .demo{border-top:1px dashed #2d3d58;color:#a4b0c7}
+html[data-theme="dark"] .demo .dc{background:#131313;border:1px solid #2d3d58;color:#c7d0dd}
+html[data-theme="dark"] .demo .dc.on{color:#ffffff}
+html[data-theme="dark"] .vsw{background:#131313;border:1px solid #1b295a}
+html[data-theme="dark"] .vsw button{color:#bcc5d2}
+html[data-theme="dark"] .vsw button.on{color:#ffffff}
+html[data-theme="dark"] /* dashboard shares the login palette */
+.aurora{background:#0a1221}
+html[data-theme="dark"] .aurora i:nth-child(1){background:#112339}
+html[data-theme="dark"] .aurora i:nth-child(2){background:#154045}
+html[data-theme="dark"] .aurora i:nth-child(3){background:#140e2f}
+html[data-theme="dark"] .aurora i:nth-child(4){background:#321024}
+html[data-theme="dark"] .tab.on{background:linear-gradient(135deg,#0d1b2d,#0d132b 50%,#270e1c);color:#afade2}
+html[data-theme="dark"] .btn.alt{background:#131313;border:1px solid #1b295a}
+html[data-theme="dark"] .hero{background:linear-gradient(120deg,#122d3c,#101836 42%,#321024 75%,#422c14)}
+html[data-theme="dark"] .side{background:rgba(19,19,19,.88);border-right:1px solid #241b59}
+html[data-theme="dark"] .mtop{background:rgba(19,19,19,.82);border-bottom:1px solid #2b1a57}
+html[data-theme="dark"] .menu{background:#131313;border:1px solid #1b295a}
+@media print{html[data-theme="dark"] body{background:#131313}}
+html[data-theme="dark"] .aurora{background:#0b1323}
+html[data-theme="dark"] .aurora i:nth-child(1){background:#1a4256}
+html[data-theme="dark"] .aurora i:nth-child(2){background:#44152f}
+html[data-theme="dark"] .aurora i:nth-child(3){background:#1b123e}
+html[data-theme="dark"] .aurora i:nth-child(4){background:#593b1b}
+html[data-theme="dark"] .side{background:linear-gradient(180deg,rgba(13,31,43,.92),rgba(25,12,39,.92) 55%,rgba(41,12,21,.92))}
+html[data-theme="dark"] .mtop{background:linear-gradient(90deg,rgba(19,19,19,.85),rgba(14,10,35,.85))}
+html[data-theme="dark"] .tab svg{background:color-mix(in srgb,var(--c) 16%,#131313)}
+html[data-theme="dark"] .pb{background:#110c27}
+html[data-theme="dark"] .chat .mu2{background:linear-gradient(135deg,#122d3c,#1e0e2f)}
+html[data-theme="dark"] #pwrap .dot{border:2px solid #333333}
+html[data-theme="dark"] .av2{color:#ffffff}
+html[data-theme="dark"] .cert{border:1px solid #1b295a}
+html[data-theme="dark"] .lb img{background:#131313}
+html[data-theme="dark"] .exb{border:1px solid #1b295a;background:rgba(19,19,19,.85);color:#cdcaec}
+html[data-theme="dark"] .exb.on{background:#0e0a23}
+html[data-theme="dark"] .tmb{border:1px solid #602044;background:linear-gradient(135deg,#230b13,#190c27);color:#f09bbe}
+html[data-theme="dark"] .tmi{background:#131313}
+html[data-theme="dark"] .tmp{background:rgba(19,19,19,.97);border:1px solid #371a57}
+html[data-theme="dark"] .tmp>b{color:#cdcaec}
+html[data-theme="dark"] .tmp p{color:#aab3c2}
+html[data-theme="dark"] .tmp a{background:linear-gradient(135deg,#0e0a23,#0d1f2b);color:#9e9ae1}
+html[data-theme="dark"] .tmp a.em{background:linear-gradient(135deg,#290c0e,#362e10);color:#f49ab3}
+html[data-theme="dark"] /* ---- theme picker ---- */
+.thb{border-color:#1e2c64;background:linear-gradient(135deg,#0b1125,#0d1f2b);color:#9e9ae1}
+html[data-theme="dark"] .thopt{border:1px solid #1b295a;background:#131313;color:#c7d0dd}
+html[data-theme="dark"] .thopt.on{background:#0b1125;color:#9e9ae1}
+html[data-theme="dark"] .thf{border:1px solid #1e2c64;background:rgba(19,19,19,.85);color:#9e9ae1}
+html[data-theme="dark"] .thb:focus-visible,html[data-theme="dark"] .thopt:focus-visible,html[data-theme="dark"] .thf:focus-visible{outline:3px solid #223072}
+html[data-theme="dark"] .mgb{color:#ffffff}
+html[data-theme="dark"] .mgs>div{background:rgba(19,19,19,.55);border:1px solid rgba(51,51,51,.9)}
+html[data-theme="dark"] .mgq svg{color:#aab3c2}
+html[data-theme="dark"] .mgq input{background:rgba(19,19,19,.6)}
+html[data-theme="dark"] .mgp .pill.on{color:#ffffff}
+html[data-theme="dark"] .mga{background:linear-gradient(135deg,#2f210e,#362e10);border:1px solid #7c6b25}
+html[data-theme="dark"] .mgc{background:rgba(19,19,19,.62);border:1px solid rgba(51,51,51,.9)}
+html[data-theme="dark"] .mgav{color:#ffffff}
+html[data-theme="dark"] .mgi{border-top:1px solid #2c304c;border-bottom:1px solid #2c304c}
+html[data-theme="dark"] .mgi>div:nth-child(even){border-left:1px solid #2c304c}
+html[data-theme="dark"] .mgi>div:nth-child(n+3){border-top:1px solid #2c304c}
+html[data-theme="dark"] .mgm>div{background:rgba(19,19,19,.7);border:1px solid rgba(51,51,51,.9)}
+html[data-theme="dark"] .mgv{color:#ffffff}
+html[data-theme="dark"]{color-scheme:dark;--ink:#e9ebfa;--mu:#a9afcb;--ln:rgba(255,255,255,.09)}
+html[data-theme="dark"] ::placeholder{color:#7f86a6}
+html[data-theme="dark"] option{background:#171a30;color:#e9ebfa}
+html[data-theme="dark"] .gymbg{filter:brightness(.5) saturate(.85)}
+html[data-theme="dark"] .fxhero p{color:#c3c8e4}
+html[data-theme="dark"] .xi svg,html[data-theme="dark"] .xhero svg,html[data-theme="dark"] .th svg{filter:brightness(.82) saturate(.92)}
+html[data-theme="dark"] [style*="#fef3c7"]{background:#3a2f12!important;color:#fde68a}
+html[data-theme="dark"] [style*="#f0fdf4"]{background:#10291c!important}
+html[data-theme="dark"] [style*="#fee2e2"]{background:#3b1518!important;color:#fecaca!important}
+html[data-theme="dark"] [style*="background:#ede9fe"]{background:#241f4a!important}
+html[data-theme="dark"] [style*="#eef2ff"]{border-color:#2a2f52!important}
+html[data-theme="dark"] [style*="#334155"],html[data-theme="dark"] [style*="#475569"]{color:#c7cce6!important}
+
 </style></head><body>
 <div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-<div class="shell"><aside class="side" id="side"><div class="sbrand"><span class="logo">Fit Connect</span></div><nav class="snav" id="tabs" aria-label="Main"></nav></aside><div class="content"><header class="mtop"><button class="menu" id="menu" aria-label="Open menu">&#9776;</button><span class="mode" id="mode">Member mode</span><span class="grow"></span><div class="tm"><button class="tmb" id="tmb" aria-haspopup="true" aria-expanded="false" aria-label="Tele-MANAS helpline"><span class="tmi"></span><span class="tml">Tele-MANAS</span></button><div class="tmp" id="tmp" hidden role="dialog" aria-label="Tele-MANAS helpline"><b>Tele-MANAS helpline</b><p>Free mental-health support from the Government of India. Open 24×7 in many languages.</p><a href="tel:14416"><span>Call free, 24×7</span><b>14416</b></a><a href="tel:18008914416"><span>Toll-free</span><b>1800-891-4416</b></a><a href="tel:112" class="em"><span>Immediate danger</span><b>112</b></a></div></div><div class="acct"><button class="avb" id="avb" aria-haspopup="true" aria-expanded="false" aria-label="Account menu">AM</button><div class="pop" id="pop" hidden><b id="pn"></b><span id="pr"></span><hr><button class="so" id="so">Sign out</button></div></div></header><main id="main"></main><footer class="foot">Estimates only, not medical advice &middot; <label><input type="checkbox" id="rmx"> Reduce motion</label></footer></div></div>
-<div class="login" id="login" hidden><div id="aurora" aria-hidden="true"><i class="ab a1"></i><i class="ab a2"></i><i class="ab a3"></i><i class="ab a4"></i><i class="ab a5"></i></div><div class="authwrap" id="authwrap"></div></div>
+<div class="shell"><aside class="side" id="side"><div class="sbrand"><span class="logo">Fit Connect</span></div><nav class="snav" id="tabs" aria-label="Main"></nav></aside><div class="content"><header class="mtop"><button class="menu" id="menu" aria-label="Open menu">&#9776;</button><span class="mode" id="mode">Member mode</span><span class="grow"></span><div class="tm" id="thw"><button class="tmb thb" id="thb" aria-haspopup="true" aria-expanded="false" aria-label="Choose theme"><span class="tmi" id="thi"></span><span class="tml" id="thl">Light</span></button><div class="tmp thp" id="thp" hidden role="dialog" aria-label="Theme"><b>Appearance</b><div class="thopts" role="radiogroup"><button class="thopt" data-th="light" role="radio" aria-checked="true" type="button" id="th-l"></button><button class="thopt" data-th="dark" role="radio" aria-checked="false" type="button" id="th-d"></button><button class="thopt" data-th="auto" role="radio" aria-checked="false" type="button" id="th-a"></button></div></div></div><div class="tm"><button class="tmb" id="tmb" aria-haspopup="true" aria-expanded="false" aria-label="Tele-MANAS helpline"><span class="tmi"></span><span class="tml">Tele-MANAS</span></button><div class="tmp" id="tmp" hidden role="dialog" aria-label="Tele-MANAS helpline"><b>Tele-MANAS helpline</b><p>Free mental-health support from the Government of India. Open 24×7 in many languages.</p><a href="tel:14416"><span>Call free, 24×7</span><b>14416</b></a><a href="tel:18008914416"><span>Toll-free</span><b>1800-891-4416</b></a><a href="tel:112" class="em"><span>Immediate danger</span><b>112</b></a></div></div><div class="acct"><button class="avb" id="avb" aria-haspopup="true" aria-expanded="false" aria-label="Account menu">AM</button><div class="pop" id="pop" hidden><b id="pn"></b><span id="pr"></span><hr><button class="so" id="so">Sign out</button></div></div></header><main id="main"></main><footer class="foot">Estimates only, not medical advice &middot; <label><input type="checkbox" id="rmx"> Reduce motion</label></footer></div></div>
+<div class="login" id="login" hidden><button class="thf" id="thf" type="button" aria-label="Switch theme"></button><div id="aurora" aria-hidden="true"><i class="ab a1"></i><i class="ab a2"></i><i class="ab a3"></i><i class="ab a4"></i><i class="ab a5"></i></div><div class="authwrap" id="authwrap"></div></div>
 <div class="tt" id="tt" aria-hidden="true"><div class="t1"></div><div class="t2"></div></div><div id="toast" role="status"></div>
 <script>/* Fit Connect art kit: equipment illustrations and icons.
    Pure inline SVG - no external images. Shared by the app and the UI preview. */
@@ -343,14 +561,61 @@ return pg("My Profile",u.onboarded?"":"Set your goals to personalise your dashbo
 <div class="card"><h3>Goals</h3><label class="f" for="gt">Goal</label><select id="gt">${[["lose_weight","Lose weight"],["maintain","Maintain"],["gain_muscle","Gain muscle"],["general_fitness","General fitness"]].map(g=>`<option value="${g[0]}" ${g[0]===(u.goal_type||"general_fitness")?"selected":""}>${g[1]}</option>`).join("")}</select><div class="row"><div><label class="f" for="gs">Daily steps</label><input id="gs" type="number" value="${u.step_goal}"></div><div><label class="f" for="gc">Calories (kcal)</label><input id="gc" type="number" value="${u.calorie_goal}"></div><div><label class="f" for="gw">Water (ml)</label><input id="gw" type="number" min="500" max="7000" step="250" value="${u.water_goal_ml}"></div><div><label class="f" for="gk">Workouts / week</label><input id="gk" type="number" value="${u.workouts_per_week}"></div></div><label class="f" for="gtw">Target weight (kg, optional)</label><input id="gtw" type="number" step="0.1" value="${u.target_weight_kg||""}"><button class="btn" style="margin-top:14px" data-a="savegoals">Save goals</button><h3 style="margin-top:18px;font-size:15px">Your data</h3><button class="btn alt" style="color:#be123c" data-a="delme">Delete my account</button></div></div><p class="note" style="text-align:center"><button class="so" data-a="signout">Sign out</button></p>`)};
 /* ---- admin ---- */
 V.adash=async()=>{const s=(await api("GET","/admin/stats")).stats;return pg("Dashboard","Subscriber counts exclude the demo membership.",`<div class="g">${tile("or","users","Active",s.active)}${tile("cy","clock","Expiring in 7 days",s.expiring)}${tile("pe","ticket","Expired",s.expired)}${tile("pu","chart","Total subscribers",s.total)}${tile("la","user","Linked to an account",s.linked)}${tile("or","calendar","Upcoming",s.upcoming)}</div>`)};
-V.users=async()=>{const m=(await api("GET","/admin/members")).members;return pg("Members","Only members who consented are shown. Wellness check-ins and AI chats stay private.",`<div class="card">${table(["Member","Area","Status","Steps","kcal","Water","Note"],m.map(x=>[esc(x.name),esc(x.area||""),stBadge(x.subscription.status),x.today.activity?fmt(x.today.activity.steps):"—",fmt(x.today.food.k),x.today.water_ml+" ml",`<button class="pill" data-a="note" data-i="${x.id}" data-n="${esc(x.note)}">${x.note?"Edit note":"Add note"}</button>`]))}</div>`)};
+
+/* ---- admin Members page: stats, search, filters, attention list, member cards ---- */
+const MGS=()=>S.mg||(S.mg={q:"",f:"all",view:null});
+const MG_F=[["all","All"],["active","Active"],["expiring","Expiring"],["attention","Attention"],["expired","Expired"]];
+const fdl=d=>{const t=new Date(d+"T00:00:00");return isNaN(t)?"—":t.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"})},fds=d=>{const t=new Date(d+"T00:00:00");return isNaN(t)?"":t.toLocaleDateString(undefined,{day:"numeric",month:"short"})};
+const MG_SEARCH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>';
+function mgInfo(x){const s=x.subscription||{},t=x.today||{},a=t.activity||{},status=s.status||"active",vis=x.visits!=null?x.visits:null,last=x.last_visit||null,why=[];
+const ago=last?Math.floor((Date.now()-new Date(last+"T00:00:00"))/864e5):null;
+if(status==="expired")why.push(["Renew","Membership expired on "+fdl(s.expiry_date)]);
+else if(typeof s.days_left==="number"&&s.days_left<=3)why.push(["Expiring","Membership expires "+(s.days_left<=0?"today":"in "+s.days_left+" day"+(s.days_left===1?"":"s"))]);
+if(vis!==null&&status!=="expired"&&status!=="upcoming"&&(ago===null||ago>7))why.push(["Follow-up","No recent attendance recorded"]);
+return{x,why,status,id:x.member_id||("FC"+String(x.id).padStart(3,"0")),joined:x.joined||x.created_at||"",plan:s.plan||"",expiry:s.expiry_date||"",vis,last,trainer:x.trainer||x.trainer_name||s.trainer_name||"",phone:x.phone||"",kcal:(t.food&&t.food.k)||0,ml:t.water_ml||0,steps:a.steps||0,sub:s}}
+const mgIni=n=>String(n||"?").trim().split(/\s+/).map(w=>w[0]).join("").slice(0,2).toUpperCase();
+function mgList(){const M=MGS(),q=M.q.trim().toLowerCase(),all=S.mgd.map(mgInfo);
+const hit=m=>!q||[m.x.name,m.id,m.phone,m.x.email,m.x.area,m.x.city].some(v=>String(v||"").toLowerCase().includes(q));
+const fl=m=>M.f==="all"||(M.f==="attention"?m.why.length>0:m.status===M.f);
+return{all,shown:all.filter(m=>hit(m)&&fl(m)),attn:all.filter(m=>m.why.length&&hit(m))}}
+function mgPills(){const M=MGS(),all=S.mgd.map(mgInfo),c={all:all.length,active:0,expiring:0,attention:0,expired:0};all.forEach(m=>{if(c[m.status]!==undefined)c[m.status]++;if(m.why.length)c.attention++});
+return MG_F.map(f=>`<button class="pill ${M.f===f[0]?"on":""}" data-a="mgf" data-f="${f[0]}" aria-pressed="${M.f===f[0]}">${f[1]}<span class="mgn">${c[f[0]]}</span></button>`).join("")}
+function mgCard(m){const x=m.x;return`<div class="mgc ${m.why.length?"attn":""}"><div class="mgh2"><div class="mgav" aria-hidden="true">${esc(mgIni(x.name))}</div><div style="flex:1;min-width:0"><div class="mgnm">${esc(x.name)}</div><div class="mgid">ID: ${esc(m.id)}${m.joined?" · Joined "+fds(m.joined.slice(0,10)):""}</div></div>${stBadge(m.status)}</div>
+<div class="mgi"><div>Membership<b>${esc(m.plan||"—")}</b></div><div>Expiry<b>${m.expiry?fdl(m.expiry):"—"}</b></div><div>Attendance<b>${m.vis!==null?m.vis+" visit"+(m.vis===1?"":"s"):"—"}</b></div><div>Trainer<b>${esc(m.trainer||"—")}</b></div></div>
+<div class="mgm"><div>Food kcal<b>${fmt(m.kcal)}</b></div><div>Water<b>${(m.ml/1000).toFixed(1)} L</b></div><div>Steps<b>${fmt(m.steps)}</b></div></div>
+<button class="mgv" data-a="mgview" data-i="${x.id}">View full profile</button></div>`}
+function mgAttn(m){const x=m.x,w=m.why[0];return`<div class="mga"><div class="mgav" aria-hidden="true">${esc(mgIni(x.name))}</div><div style="flex:1;min-width:0"><div class="rw"><span class="mgnm">${esc(x.name)}</span><span class="bd wn">${esc(w[0])}</span></div><div class="mgr">${esc(w[1])}</div><div class="note" style="margin-top:6px">Assigned trainer: <b>${esc(m.trainer||"—")}</b></div></div><button class="pill" data-a="mgview" data-i="${x.id}">Open</button></div>`}
+function mgProfile(m){const x=m.x,s=m.sub,k=(l,v)=>`<div>${l}<b>${v===""||v==null?"—":v}</b></div>`;
+return`<div class="card mgd"><div class="mgh2"><div class="mgav" aria-hidden="true">${esc(mgIni(x.name))}</div><div style="flex:1"><div class="mgnm">${esc(x.name)}</div><div class="mgid">ID: ${esc(m.id)}</div></div>${stBadge(m.status)}<button class="pill" data-a="mgclose">Close</button></div>
+${m.why.length?`<div class="mga" style="margin:12px 0 0"><div style="flex:1">${m.why.map(w=>`<div><span class="bd wn">${esc(w[0])}</span> ${esc(w[1])}</div>`).join("")}</div></div>`:""}
+<div class="mgk">${k("Email",esc(x.email))}${k("Phone",esc(m.phone))}${k("Area / city",esc([x.area,x.city].filter(Boolean).join(", ")))}${k("Joined",m.joined?fdl(m.joined.slice(0,10)):"")}${k("Membership",esc(m.plan))}${k("Start date",s.start_date?fdl(s.start_date):"")}${k("Expiry",m.expiry?fdl(m.expiry):"")}${k("Days left",typeof s.days_left==="number"?(s.days_left<0?"Expired "+Math.abs(s.days_left)+" days ago":s.days_left):"")}${k("Code",s.code?esc(s.code):"")}${k("Attendance (last 30 days)",m.vis!==null?m.vis+" visits":"")}${k("Last visit",m.last?fdl(m.last):"")}${k("Trainer",esc(m.trainer))}${k("Steps today",fmt(m.steps))}${k("Food today",fmt(m.kcal)+" kcal")}${k("Water today",(m.ml/1000).toFixed(1)+" L")}</div>
+<div class="note" style="margin-bottom:10px"><b>Private note:</b> ${x.note?esc(x.note):"none yet"}</div>
+<div class="rw"><button class="btn" data-a="note" data-i="${x.id}" data-n="${esc(x.note||"")}">${x.note?"Edit note":"Add note"}</button>${s.id?`<button class="btn alt" data-a="renew" data-i="${s.id}">Renew</button><button class="btn alt" data-a="extend" data-i="${s.id}">Extend days</button><button class="btn alt" data-a="unlink" data-i="${s.id}">Unlink</button>`:""}</div></div>`}
+function mgBody(){const M=MGS(),L=mgList(),cur=M.view!=null?L.all.find(m=>m.x.id===M.view):null;let h="";
+if(cur)h+=mgProfile(cur);
+if(M.f==="all"&&L.attn.length)h+=`<div class="card"><div class="mgsec">Attention required (${L.attn.length} member${L.attn.length===1?"":"s"})</div>${L.attn.map(mgAttn).join("")}</div>`;
+const title=M.f==="all"?"All members":(MG_F.find(f=>f[0]===M.f)||[0,"Members"])[1]+" members";
+h+=`<div class="card"><div class="mgsec">${title} (${L.shown.length})</div>${L.shown.length?`<div class="mgg">${L.shown.map(mgCard).join("")}</div>`:`<div class="mgempty">${S.mgd.length?"No members match your search or filter.":"No members have linked a subscription code yet."}</div>`}</div>`;return h}
+function mgPaint(){const p=$("mg-pills"),b=$("mg-body");if(p)p.innerHTML=mgPills();if(b)b.innerHTML=mgBody()}
+V.users=async()=>{const d=await api("GET","/admin/members");S.mgd=d.members||[];const M=MGS(),all=S.mgd.map(mgInfo);
+if(M.view!=null&&!S.mgd.some(x=>x.id===M.view))M.view=null;
+const tot=all.length,act=all.filter(m=>m.status==="active").length,exp=all.filter(m=>m.status==="expiring").length,att=all.filter(m=>m.why.length).length;
+return`<div class="page"><div class="card mgh"><div class="mgt"><h2>Members <span>· Manage and monitor your gym members</span></h2><span class="mgb">Admin</span></div>
+<div class="mgs"><div><b>${tot}</b><span>Total members</span></div><div><b>${act}</b><span>Active members</span></div><div><b>${exp}</b><span>Expiring soon</span></div><div><b>${att}</b><span>Need attention</span></div></div>
+<div class="mgf"><div class="mgq">${MG_SEARCH}<input id="mg-q" type="text" autocomplete="off" placeholder="Search by name, member ID, phone or email" value="${esc(M.q)}" aria-label="Search members"></div><div class="mgp" id="mg-pills" role="group" aria-label="Filter members">${mgPills()}</div></div>
+<p class="note" style="margin-top:10px">Only members who consented are shown. Wellness check-ins and AI chats stay private.</p></div><div id="mg-body" style="display:flex;flex-direction:column;gap:18px">${mgBody()}</div></div>`};
 V.mems=async()=>{const s=(await api("GET","/admin/subscriptions")).subscriptions;return pg("Memberships","Create codes, renew and extend subscriptions.",`<div class="card"><h3>New subscription</h3><div class="row"><div><label class="f" for="ns-n">Member name</label><input id="ns-n" type="text"></div><div><label class="f" for="ns-p">Plan</label><input id="ns-p" type="text" value="Monthly"></div><div><label class="f" for="ns-m">Months</label><input id="ns-m" type="number" value="1" min="1" max="24"></div><div><label class="f" for="ns-r">Price (₹)</label><input id="ns-r" type="number" value="999"></div></div><button class="btn" style="margin-top:12px" data-a="newsub">Create code</button></div><div class="card"><h3>All subscriptions</h3>${table(["Member","Status","Expiry","Code","Linked",""],s.map(x=>[esc(x.member_name),x.is_demo?'<span class="bd dm">DEMO</span>':stBadge(x.status),x.expiry_date,`<code>${esc(x.code)}</code>`,esc(x.linked_name||"—"),`<button class="pill" data-a="renew" data-i="${x.id}">Renew</button> <button class="pill" data-a="extend" data-i="${x.id}">+Days</button>${x.user_id?` <button class="pill" data-a="unlink" data-i="${x.id}">Unlink</button>`:""}`]))}</div>`)};
 V.lib=async()=>{const v=(await api("GET","/videos")).videos;S.vids=v;return pg("Workout Videos","Upload MP4 or WebM videos for members.",`<div class="card"><h3>Upload a workout video</h3><div class="row"><div><label class="f" for="up-t">Exercise name</label><input id="up-t" type="text" placeholder="e.g. Bench Press"></div><div><label class="f" for="up-c">Body part</label><select id="up-c">${VIDEO_CATEGORIES.map(c=>`<option value="${c}">${c}</option>`).join("")}</select></div><div><label class="f" for="up-tn">Trainer name</label><input id="up-tn" type="text" value="${esc(U.name)}"></div></div><label class="f" for="up-f">Video file (MP4 or WebM)</label><input id="up-f" type="file" accept="video/mp4,video/webm"><label class="f" for="up-th">Thumbnail (small JPEG, optional)</label><input id="up-th" type="file" accept="image/jpeg"><label class="f" for="up-i">Instructions</label><textarea id="up-i" rows="3"></textarea><button class="btn" style="margin-top:12px" data-a="upload">Upload</button></div><div class="card"><h3>Library</h3>${table(["Exercise","Body part","Trainer",""],v.map(x=>[esc(x.title),esc(x.category),esc(x.trainer_name),`<button class="lk" data-a="delvid" data-i="${x.id}">delete</button>`]))}</div>`)};
 V.atrn=async()=>{const [t,b]=await Promise.all([api("GET","/trainers"),api("GET","/bookings")]);return pg("Trainers & Bookings","",`<div class="g2"><div class="card"><h3>Add trainer</h3><label class="f" for="tn-n">Name</label><input id="tn-n" type="text"><div class="row"><div><label class="f" for="tn-a">Area</label><input id="tn-a" type="text"></div><div><label class="f" for="tn-c">City</label><input id="tn-c" type="text"></div></div><label class="f" for="tn-f">Fee (₹)</label><input id="tn-f" type="number"><label class="f" for="tn-b">Bio</label><input id="tn-b" type="text"><button class="btn" style="margin-top:12px" data-a="addtrn">Add trainer</button><div style="margin-top:12px">${t.trainers.map(x=>`<div class="setrow"><span>${esc(x.name)} · ${esc(x.city||"")}</span><button class="lk" data-a="deltrn" data-i="${x.id}">remove</button></div>`).join("")}</div></div><div class="card"><h3>Bookings</h3>${table(["Date","Time","Member","Trainer","Status",""],b.bookings.map(x=>[x.date,x.time,esc(x.member_name),esc(x.trainer_name),x.status,`<button class="pill" data-a="bkst" data-i="${x.id}" data-e="confirmed">Confirm</button> <button class="pill" data-a="bkst" data-i="${x.id}" data-e="completed">Done</button>`]))}</div></div>`)};
 V.chk=async()=>{let d;try{d=await api("GET","/attendance/me")}catch(x){return locked(x)||pg("Check-in","",`<div class="card">${esc(x.message)}</div>`)}
 const on=!!d.open,last=d.today[0],done=!on&&last&&last.check_out,av=d.avg_minutes?Math.floor(d.avg_minutes/60)+" h "+String(d.avg_minutes%60).padStart(2,"0"):"—";
 return pg("Check-in","Tap once when you arrive at the gym and again when you leave.",`<div class="g2"><div class="card" style="text-align:center"><h3>Today</h3><div style="margin:14px 0"><span class="bd ${on?"ok":done?"dm":"wn"}">${on?"Checked in":done?"Checked out":"Not checked in"}</span></div><div style="font-size:34px;font-weight:800">${last?last.check_in:"--:--"}${done?" – "+last.check_out:""}</div><p class="note" style="margin:8px 0 16px">${on?"Have a great session!":done?"See you next time. You can check in again for another visit.":"Check in when you arrive."} Times use the gym’s clock.</p>${on?'<button class="btn" data-a="cout">Check out</button>':'<button class="btn" data-a="cin">Check in</button>'}</div><div class="card"><h3>This month</h3><div class="g">${tile("or","calendar","Visits",d.visits_month)}${tile("cy","clock","Avg stay",av)}${tile("pu","ticket","Streak",d.streak+(d.streak===1?" day":" days"))}</div></div></div><div class="card"><h3>Recent visits</h3>${table(["Date","In","Out"],d.history.map(r=>[r.date,r.check_in,r.check_out||"—"]))}</div>`)};
-V.att=async()=>{const d=await api("GET","/admin/attendance");return pg("Attendance","Tap a name to check a member in or out.",`<div class="g2"><div class="card"><h3>Today (${d.date})</h3>${d.members.map(m=>`<div class="setrow"><span>${esc(m.name)}${m.check_in?` <span class="note">${m.check_in}${m.check_out?" – "+m.check_out:""}</span>`:""}</span><button class="pill ${m.status==="in"?"on":""}" data-a="atog" data-i="${m.id}">${m.status==="in"?"Check out":"Check in"}</button></div>`).join("")||'<p class="note">No linked members yet.</p>'}</div><div class="card"><h3>Members in — last 14 days</h3>${bars(d.last14.map(x=>x.count),d.last14.map(x=>x.date.slice(8)))}</div></div>`)};
+V.att=async()=>{const d=await api("GET","/admin/attendance");
+const tm=x=>{const p=String(x).split(":");return +p[0]*60+ +p[1]},inside=m=>m.status==="in";
+const dur=m=>{if(!m.check_in||!m.check_out)return "—";let x=tm(m.check_out)-tm(m.check_in);if(x<0)x+=1440;return x>=60?Math.floor(x/60)+" h "+String(x%60).padStart(2,"0")+" min":x+" min"};
+const seen=d.members.filter(m=>m.check_in||inside(m)).sort((a,b)=>(inside(b)-inside(a))||String(b.check_in).localeCompare(String(a.check_in))),rest=d.members.filter(m=>!seen.includes(m)),now=seen.filter(inside).length;
+clearTimeout(window._attT);const tick=()=>{window._attT=setTimeout(async()=>{if(CUR!=="att"||!U)return;if(!document.hidden){try{const h=await V.att();if(CUR==="att"&&U)$("main").innerHTML=bn()+h;return}catch(e){}}tick()},30000)};tick();
+return pg("Attendance","See who is in the gym today. Members check themselves in and out from their own Check-in tab. This page updates every 30 seconds.",`<div class="g">${tile("or","users","In the gym now",now)}${tile("cy","calendar","Checked in today",seen.length)}${tile("pu","clock","Not in yet",rest.length)}</div><div class="card"><div class="rw" style="justify-content:space-between"><h3 style="margin:0">Today (${esc(d.date)})</h3><button class="btn alt" data-a="attref">Refresh</button></div><div style="margin-top:12px">${table(["Member","Status","In","Out","Time at gym"],seen.map(m=>[esc(m.name),inside(m)?'<span class="bd ok">In gym</span>':'<span class="bd dm">Left</span>',esc(m.check_in||"—"),inside(m)?"—":esc(m.check_out||"—"),inside(m)?"Still in gym":dur(m)]))}</div></div>${rest.length?`<div class="card"><h3>Not checked in yet (${rest.length})</h3><div class="rw">${rest.map(m=>`<span class="tag">${esc(m.name)}</span>`).join("")}</div></div>`:""}<div class="card"><h3>Members in — last 14 days</h3>${bars(d.last14.map(x=>x.count),d.last14.map(x=>x.date.slice(8)))}</div>`)};
 V.nut=async()=>{const [f,n]=await Promise.all([api("GET","/foods?q="+encodeURIComponent(S.fq||"")),api("GET","/admin/nutrition/today")]);
 return pg("Nutrition","Manage the food database and see members’ intake.",`<div class="g2"><div class="card"><h3>Add food (per 100 g)</h3><label class="f" for="nf-n">Name</label><input id="nf-n" type="text"><div class="row"><div><label class="f" for="nf-k">kcal</label><input id="nf-k" type="number"></div><div><label class="f" for="nf-p">Protein g</label><input id="nf-p" type="number" step="0.1"></div><div><label class="f" for="nf-c">Carbs g</label><input id="nf-c" type="number" step="0.1"></div><div><label class="f" for="nf-f">Fat g</label><input id="nf-f" type="number" step="0.1"></div><div><label class="f" for="nf-sl">Serving label</label><input id="nf-sl" type="text" placeholder="1 bowl"></div><div><label class="f" for="nf-sg">Serving g</label><input id="nf-sg" type="number"></div></div><button class="btn" style="margin-top:12px" data-a="foodadd">Add food</button></div><div class="card"><h3>Member intake today (estimates)</h3>${table(["Member","kcal","Water"],n.members.map(m=>[esc(m.name),fmt(m.kcal),m.water_ml+" ml"]))}</div></div><div class="card"><div class="rw"><input id="nf-q" type="text" placeholder="Search foods" value="${esc(S.fq||"")}" style="max-width:240px"><button class="btn alt" data-a="foodq">Search</button></div>${table(["Food","kcal","P","C","F","Serving",""],f.foods.map(x=>[esc(x.name),x.kcal,x.protein,x.carbs,x.fat,esc(x.serving_label||""),`<button class="lk" data-a="fooddel" data-i="${x.id}">delete</button>`]))}<p class="note">Values are per 100 g. Showing up to 40 matches.</p></div>`)};
 V.ana=async()=>{const a=await api("GET","/admin/analytics");return pg("Analytics & Reports","Trends across the gym.",`<div class="g">${tile("or","users","New members (30 d)",a.new_members_30d)}${tile("cy","calendar","Avg daily check-ins",a.avg_daily_checkins)}${tile("pu","dumbbell","Logged workouts (30 d)",a.workouts_30d)}${tile("pe","clock","Renewal rate",a.renewal_rate==null?"—":a.renewal_rate+"%")}</div><div class="g2"><div class="card"><h3>Check-ins by weekday (8 weeks)</h3>${bars(a.weekday,["M","T","W","T","F","S","S"])}</div><div class="card"><h3>Most logged exercises (30 d)</h3>${a.top_exercises.length?bars(a.top_exercises.map(x=>x.n),a.top_exercises.map(x=>esc(x.exercise.slice(0,3)))):'<p class="note">No workouts logged yet.</p>'}</div></div><div class="card"><h3>Export</h3><div class="rw"><a class="btn" style="text-decoration:none" href="/api/admin/export.csv" download>Download CSV</a><button class="btn alt" data-a="print">Print / save as PDF</button></div><p class="note" style="margin-top:8px">${esc(a.note)}</p></div>`)};
@@ -364,14 +629,32 @@ V.team=async()=>{const t=(await api("GET","/team")).trainers;return pg("Our Trai
 V.mtrn=async()=>{const t=(await api("GET","/team")).trainers,e=t.find(x=>x.id===S.tedit)||{};
 return pg("Manage Trainers","Add trainers and upload their certificates. Members see these profiles.",`<div class="g2"><div class="card"><h3>${e.id?"Edit trainer":"Add trainer"}</h3><label class="f" for="tr-n">Name</label><input id="tr-n" type="text" maxlength="60" value="${esc(e.name||"")}"><div class="row"><div><label class="f" for="tr-s">Specialty</label><input id="tr-s" type="text" placeholder="Strength & conditioning" value="${esc(e.specialty||"")}"></div><div><label class="f" for="tr-y">Years of experience</label><input id="tr-y" type="number" min="0" max="60" value="${e.experience_years??""}"></div></div><label class="f" for="tr-b">Short bio</label><textarea id="tr-b" rows="3" maxlength="400">${esc(e.bio||"")}</textarea><label class="f" for="tr-c">Contact (optional)</label><input id="tr-c" type="text" maxlength="80" value="${esc(e.contact||"")}"><label class="f" for="tr-t">Certificate name</label><input id="tr-t" type="text" maxlength="100" placeholder="e.g. ACE Certified Personal Trainer" value="${esc(e.cert_title||"")}"><label class="f" for="tr-f">Certificate file (JPG, PNG or PDF, max 5 MB)</label><input id="tr-f" type="file" accept="image/jpeg,image/png,application/pdf">${e.has_cert?'<label class="f" style="display:flex;gap:8px;align-items:center;font-weight:500"><input id="tr-rm" type="checkbox" style="width:auto"> Remove current certificate</label>':""}<div class="rw" style="margin-top:14px"><button class="btn" data-a="tsave">${e.id?"Save changes":"Add trainer"}</button>${e.id?'<button class="btn alt" data-a="tcancel">Cancel</button>':""}</div></div><div class="card"><h3>Trainers (${t.length})</h3>${table(["Name","Specialty","Certificate",""],t.map(x=>[esc(x.name),esc(x.specialty||"—"),x.has_cert?`<a href="/api/team/${x.id}/certificate" target="_blank" rel="noopener">${esc(x.cert_title||"View")}</a>`:"—",`<button class="pill" data-a="tedit" data-i="${x.id}">Edit</button> <button class="lk" data-a="tdel" data-i="${x.id}">delete</button>`]))}</div></div>`)};
 function lgS(){return S.lg||(S.lg={part:"Chest",exid:null,rows:[],work:[],notes:"",dur:"",hf:"",qs:3,qr:10,qw:""})}
+
+/* ---- workout log: compare an exercise with its own history ---- */
+const mx=st=>({top:Math.max(...st.map(x=>x.w)),reps:st.reduce((a,x)=>a+x.r,0),vol:st.reduce((a,x)=>a+x.w*x.r,0),e1:Math.max(...st.map(x=>x.w*(1+x.r/30)))});
+function exSess(name){const n=String(name||"").toLowerCase(),out=[];(S.lgAll||[]).forEach(w=>(w.entries||[]).forEach(e=>{if(String(e.exercise).toLowerCase()!==n)return;const st=(e.sets||[]).map(x=>({w:+x.weight_kg||0,r:+x.reps||0})).filter(x=>x.r>0);if(st.length)out.push(Object.assign({date:w.date,sets:st},mx(st)))}));return out.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0)}
+const dlt=(a,b,u)=>{const d=Math.round((b-a)*10)/10;return d===0?'<span class="bd dm dlt">no change</span>':`<span class="bd ${d>0?"ok":"ex2"} dlt">${d>0?"▲ +":"▼ −"}${Math.abs(d)}${u}</span>`};
+function cmpTable(a,b,la,lb){const bw=a.top===0&&b.top===0,R=[];if(!bw)R.push(["Top weight",a.top+" kg",b.top+" kg",dlt(a.top,b.top," kg")]);R.push(["Total reps",a.reps,b.reps,dlt(a.reps,b.reps,"")]);if(!bw){R.push(["Volume (weight × reps)",fmt(a.vol)+" kg",fmt(b.vol)+" kg",dlt(a.vol,b.vol," kg")]);R.push(["Est. 1RM",Math.round(a.e1)+" kg",Math.round(b.e1)+" kg",dlt(Math.round(a.e1),Math.round(b.e1)," kg")])}R.push(["Sets",a.sets.length,b.sets.length,dlt(a.sets.length,b.sets.length,"")]);return table(["Metric",esc(la),esc(lb),"Change"],R)}
+const cbars=(v,l)=>{const mn=Math.min(...v),hi=Math.max(...v),sp=hi-mn;return`<div class="bars" style="margin-top:22px">${v.map(x=>`<div style="height:${sp?30+70*(x-mn)/sp:70}%"><span>${x}</span></div>`).join("")}</div><div class="bl">${l.map(x=>`<span>${x}</span>`).join("")}</div>`};
+function lgExName(){let nm="";if(S.lgd)S.lgd.parts.forEach(q=>q.exercises.forEach(x=>{if(x.id===S.lg.exid)nm=x.name}));return nm}
+function lgLive(){const el=$("lg-live");if(!el)return;const ss=exSess(lgExName()),last=ss[ss.length-1],rows=S.lg.rows.filter(x=>(+x.r)>0);
+if(!last){el.innerHTML='<p class="note">This is a new exercise for you. Your first saved session sets the baseline.</p>';return}
+if(!rows.length){el.innerHTML=`<p class="note">Add sets above to compare today with your last session (${esc(last.date)}: ${last.sets.map(x=>(x.w?x.w+" kg":"bodyweight")+" × "+x.r).join(", ")}).</p>`;return}
+const t=rows.map(x=>({w:+x.w||0,r:+x.r||0}));el.innerHTML=`<h4 class="cmph" style="margin-top:0">Today vs last time</h4>`+cmpTable(last,Object.assign({sets:t},mx(t)),"Last time · "+last.date,"Today (not saved yet)")}
+function lgCmp(name){const L=S.lg,ss=exSess(name),n=ss.length;let body='<div id="lg-live"></div>';
+if(n){const bw=ss.every(s=>s.top===0),bi=L.cb!=null&&L.cb<n?L.cb:n-1,ai=L.ca!=null&&L.ca<n?L.ca:Math.max(0,n-2),opt=sel=>ss.map((s,i)=>`<option value="${i}" ${i===sel?"selected":""}>${esc(s.date)} · ${s.top>0?s.top+" kg":"bodyweight"} × ${s.reps} reps</option>`).join(""),l8=ss.slice(-8);
+body+=(n>1?`<h4 class="cmph">Compare two sessions</h4><div class="cmpsel"><div><label class="f" for="lg-ca">Earlier</label><select id="lg-ca">${opt(ai)}</select></div><div><label class="f" for="lg-cb">Later</label><select id="lg-cb">${opt(bi)}</select></div></div>${cmpTable(ss[ai],ss[bi],ss[ai].date,ss[bi].date)}`:'<p class="note" style="margin-top:10px">Log this exercise on another day to compare two sessions.</p>')
++`<h4 class="cmph">Trend: ${bw?"total reps":"volume (kg)"} per session</h4>${cbars(l8.map(s=>Math.round(bw?s.reps:s.vol)),l8.map(s=>s.date.slice(5)))}<div class="note" style="margin-top:4px">Bars start at your lowest session so small changes are easy to see.</div><h4 class="cmph">Session history</h4>${ss.slice().reverse().slice(0,10).map(s=>`<div class="setrow"><span><b>${esc(s.date)}</b><br><span class="note">${s.sets.map(x=>(x.w?x.w+" kg":"bodyweight")+" × "+x.r).join(" · ")}</span></span><span class="note">${s.top>0?"top "+s.top+" kg":s.reps+" reps"}</span></div>`).join("")}`}
+return `<div class="card"><h3 style="margin:0">Compare progress: ${esc(name)}</h3><div class="note" style="margin-bottom:6px">${n} saved session${n===1?"":"s"}, compared exercise by exercise</div>${body}</div>`}
 V.log=async()=>{const L=lgS();const [ex,hi,rc]=await Promise.all([api("GET","/logbook/exercises"),api("GET","/logbook/history"+(L.hf?"?body_part="+encodeURIComponent(L.hf):"")),api("GET","/logbook/records")]);
 S.lgd={parts:ex.body_parts,hist:hi.workouts,recs:rc.records};
+S.lgAll=L.hf?((await api("GET","/logbook/history")).workouts||[]):hi.workouts;
 if(!L.exid){const p=S.lgd.parts.find(x=>x.name===L.part)||S.lgd.parts[0];L.part=p.name;L.exid=p.exercises[0]&&p.exercises[0].id}
 return lgHTML()};
-function lgPaint(){$("main").innerHTML=bn()+lgHTML();lgInfo()}
+function lgPaint(){$("main").innerHTML=bn()+lgHTML();lgInfo();lgLive()}
 function lgInfo(){const L=S.lg,p=$("lg-pr"),e=$("lg-est");if(!p||!S.lgd)return;let ex=null;S.lgd.parts.forEach(q=>q.exercises.forEach(x=>{if(x.id===L.exid)ex=x}));
 const rec=ex&&S.lgd.recs.find(r=>r.exercise.toLowerCase()===ex.name.toLowerCase());const mw=Math.max(0,...L.rows.map(x=>x.w||0));let b=0;L.rows.forEach(x=>{const v=(x.w||0)*(1+(x.r||0)/30);if(v>b)b=v});
-e.textContent=b>0?"Best set: est. 1RM "+Math.round(b)+" kg":"";const np=rec&&mw>rec.best_weight_kg;p.className="bd "+(np?"ok":"dm");p.textContent=rec?(np?"New PR: "+mw+" kg":"Your PR: "+(rec.best_weight_kg>0?rec.best_weight_kg+" kg":rec.best_reps+" reps")):"No record yet"}
+e.textContent=b>0?"Best set: est. 1RM "+Math.round(b)+" kg":"";const np=rec&&mw>rec.best_weight_kg;p.className="bd "+(np?"ok":"dm");p.textContent=rec?(np?"New PR: "+mw+" kg":"Your PR: "+(rec.best_weight_kg>0?rec.best_weight_kg+" kg":rec.best_reps+" reps")):"No record yet";lgLive()}
 function lgHTML(){const L=S.lg,D=S.lgd,part=D.parts.find(p=>p.name===L.part),ex=part.exercises.find(e=>e.id===L.exid)||{name:"Choose an exercise"};
 const chips=D.parts.map((p,i)=>`<button class="pill ${p.name===L.part?"on":""}" data-a="lgpart" data-p="${p.name}"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${COL[i%5]};margin-right:6px"></span>${p.name}</button>`).join("");
 const exs=part.exercises.map(e=>`<button class="exb ${e.id===L.exid?"on":""}" data-a="lgex" data-i="${e.id}">${esc(e.name)}</button>`).join("");
@@ -384,6 +667,7 @@ return pg("Workout Logbook","Choose a body part and an exercise, enter your sets
 <div class="row" style="margin-top:12px;align-items:end"><div><label class="f" for="lg-s">Sets</label><input id="lg-s" type="number" min="1" max="20" value="${esc(L.qs)}" data-lgf="qs"></div><div><label class="f" for="lg-r">Reps</label><input id="lg-r" type="number" min="1" max="200" value="${esc(L.qr)}" data-lgf="qr"></div><div><label class="f" for="lg-w">Weight (kg)</label><input id="lg-w" type="number" min="0" step="0.5" value="${esc(L.qw)}" data-lgf="qw"></div><div><button class="btn alt" data-a="lgfill">Fill sets</button></div></div>
 ${rows}<div class="rw" style="margin-top:14px"><button class="btn alt" data-a="lgadd">+ Add set</button><button class="btn" data-a="lgaddwork">Add to workout</button><span class="note" id="lg-est"></span></div></div>
 <div class="card"><h3>Today’s workout</h3>${work}<label class="f" for="lg-n">Notes (optional)</label><input id="lg-n" type="text" maxlength="500" value="${esc(L.notes)}" data-lgf="notes"><label class="f" for="lg-d">Duration in minutes (optional)</label><input id="lg-d" type="number" min="1" max="600" value="${esc(L.dur)}" data-lgf="dur" style="max-width:160px"><button class="btn" style="margin-top:14px" data-a="lgsave">Save workout</button></div></div>
+${lgCmp(ex.name)}
 <div class="g2"><div class="card"><h3>Personal records</h3>${recs}<p class="note" style="margin-top:8px">Estimated 1RM uses the Epley formula and is most reliable up to about 10 reps.</p></div>
 <div class="card"><div class="rw" style="justify-content:space-between"><h3 style="margin:0">History</h3><select id="lg-hf" style="max-width:170px" aria-label="Filter history by body part"><option value="">All body parts</option>${D.parts.map(p=>`<option ${p.name===L.hf?"selected":""}>${p.name}</option>`).join("")}</select></div><div style="margin-top:8px">${hist}</div></div></div>`)};
 V.water=async()=>{const d=await api("GET","/food-log"),goal=d.water_goal_ml,ml=d.water_ml,gl=Math.min(Math.ceil(goal/250),28),n=Math.floor(ml/250),pc=Math.min(100,Math.round(ml/goal*100));
@@ -466,6 +750,7 @@ async saveprof(){U=(await api("PATCH","/me",{name:val("pf-n"),age:num("pf-a"),ci
 async savegoals(){U=(await api("PATCH","/me/goals",{goal_type:$("gt").value,step_goal:num("gs"),calorie_goal:num("gc"),water_goal_ml:num("gw"),workouts_per_week:num("gk"),target_weight_kg:num("gtw")})).user;toast("Goals saved");CUR==="prof"&&render()},
 async delme(){const p=prompt("Enter your password to permanently delete your account:");if(!p)return;await api("DELETE","/me",{password:p});U=null;showLogin()},
 signout(){doSignout()},
+mgf(b){MGS().f=b.dataset.f;mgPaint()},mgview(b){MGS().view=+b.dataset.i;mgPaint();const e=$("mg-body");if(e)e.scrollIntoView({behavior:RM()?"auto":"smooth",block:"start"})},mgclose(){MGS().view=null;mgPaint()},
 async note(b){const n=prompt("Note for this member:",b.dataset.n||"");if(n===null)return;await api("PUT","/admin/members/"+b.dataset.i+"/note",{note:n});render()},
 async newsub(){const r=await api("POST","/admin/subscriptions",{member_name:val("ns-n"),plan:val("ns-p"),months:num("ns-m"),price_inr:num("ns-r")});alert("Code for the member (share it once): "+r.code);render()},
 async renew(b){const m=prompt("Renew for how many months?","1");if(!m)return;await api("POST","/admin/subscriptions/"+b.dataset.i+"/renew",{months:+m});render()},
@@ -478,14 +763,14 @@ async deltrn(b){await api("DELETE","/admin/trainers/"+b.dataset.i);render()},
 async bkst(b){await api("PATCH","/admin/bookings/"+b.dataset.i,{status:b.dataset.e});render()},
 async readall(){await api("POST","/notifications/read",{});render()},
 async cin(){await api("POST","/attendance/checkin",{});toast("Checked in");render()},async cout(){await api("POST","/attendance/checkout",{});toast("Checked out");render()},
-async atog(b){await api("POST","/admin/attendance/toggle",{user_id:+b.dataset.i});render()},
+attref(){return render()},
 async foodadd(){await api("POST","/admin/foods",{name:val("nf-n"),kcal:num("nf-k"),protein:num("nf-p"),carbs:num("nf-c"),fat:num("nf-f"),serving_label:val("nf-sl")||undefined,serving_g:num("nf-sg")});toast("Food added");render()},
 foodq(){S.fq=val("nf-q");render()},async fooddel(b){if(!confirm("Delete this food? Past logs keep their values."))return;await api("DELETE","/admin/foods/"+b.dataset.i);render()},
 async annsend(){const r=await api("POST","/admin/announcements",{audience:$("nt-a").value,city:val("nt-c")||undefined,message:val("nt-m")});toast("Sent to "+r.sent_to+" member"+(r.sent_to===1?"":"s"));render()},
 async setsave(){await api("PUT","/admin/settings",{gym_name:val("st-n")});toast("Settings saved");brand()},
 async pwchange(){await api("POST","/me/password",{current:$("pw-c").value,new:$("pw-n").value});toast("Password changed");render()},
-lgpart(b){const L=S.lg,p=S.lgd.parts.find(x=>x.name===b.dataset.p);L.part=p.name;L.exid=p.exercises[0]&&p.exercises[0].id;L.rows=[];lgPaint()},
-lgex(b){S.lg.exid=+b.dataset.i;S.lg.rows=[];lgPaint()},
+lgpart(b){const L=S.lg,p=S.lgd.parts.find(x=>x.name===b.dataset.p);L.part=p.name;L.exid=p.exercises[0]&&p.exercises[0].id;L.rows=[];L.ca=L.cb=null;lgPaint()},
+lgex(b){S.lg.exid=+b.dataset.i;S.lg.rows=[];S.lg.ca=S.lg.cb=null;lgPaint()},
 lgfill(){const L=S.lg,n=Math.max(1,Math.min(20,Math.round(+$("lg-s").value)||1)),r=Math.max(1,Math.round(+$("lg-r").value)||1),w=Math.max(0,+$("lg-w").value||0);L.rows=Array.from({length:n},()=>({w,r}));lgPaint()},
 lgadd(){const R=S.lg.rows,l=R[R.length-1]||{w:+S.lg.qw||0,r:+S.lg.qr||8};if(R.length>=30)return toast("Up to 30 sets per exercise");R.push({w:l.w,r:l.r});lgPaint()},
 lgdel(b){S.lg.rows.splice(+b.dataset.i,1);lgPaint()},
@@ -506,10 +791,10 @@ $("main").addEventListener("click",async e=>{const b=e.target.closest("[data-a]"
 $("tabs").addEventListener("click",e=>{const b=e.target.closest("[data-t]");if(b){$("side").classList.remove("open");go(b.dataset.t)}});
 $("menu").onclick=e=>{e.stopPropagation();$("side").classList.toggle("open")};document.addEventListener("click",e=>{if(!e.target.closest("#side"))$("side").classList.remove("open")});
 $("main").addEventListener("keydown",e=>{if(e.target.id==="in-chat"&&e.key==="Enter"&&!e.shiftKey){e.preventDefault();ACT.chat()}});
-$("main").addEventListener("change",e=>{if(e.target.id==="in-pimg"&&e.target.files[0])prev(e.target.files[0]);if(e.target.id==="lg-hf"){S.lg.hf=e.target.value;render()}});
-$("main").addEventListener("input",e=>{const t=e.target;if(t.dataset.live)calcLive();if(S.lg&&t.dataset.lg){const[k,i]=t.dataset.lg.split(":");S.lg.rows[+i][k]=+t.value;lgInfo()}if(S.lg&&t.dataset.lgf)S.lg[t.dataset.lgf]=t.value});
+$("main").addEventListener("change",e=>{if(e.target.id==="in-pimg"&&e.target.files[0])prev(e.target.files[0]);if(e.target.id==="lg-hf"){S.lg.hf=e.target.value;render()}if(e.target.id==="lg-ca"||e.target.id==="lg-cb"){S.lg[e.target.id==="lg-ca"?"ca":"cb"]=+e.target.value;lgPaint()}});
+$("main").addEventListener("input",e=>{const t=e.target;if(t.id==="mg-q"){MGS().q=t.value;mgPaint();return}if(t.dataset.live)calcLive();if(S.lg&&t.dataset.lg){const[k,i]=t.dataset.lg.split(":");S.lg.rows[+i][k]=+t.value;lgInfo()}if(S.lg&&t.dataset.lgf)S.lg[t.dataset.lgf]=t.value});
 $("avb").onclick=e=>{e.stopPropagation();const p=$("pop"),o=p.hidden;p.hidden=!o;$("avb").setAttribute("aria-expanded",o)};document.addEventListener("click",()=>{$("pop").hidden=true;$("avb").setAttribute("aria-expanded","false")});$("pop").onclick=e=>e.stopPropagation();document.addEventListener("keydown",e=>{if(e.key==="Escape")$("pop").hidden=true});
-$("tmb").insertAdjacentHTML("afterbegin","");document.querySelector(".tmi").innerHTML=I.heart;
+$("tmb").insertAdjacentHTML("afterbegin","");document.querySelector("#tmb .tmi").innerHTML=I.heart;
 $("tmb").onclick=e=>{e.stopPropagation();const p=$("tmp"),o=p.hidden;p.hidden=!o;$("pop").hidden=true;$("tmb").setAttribute("aria-expanded",o)};
 $("tmp").onclick=e=>e.stopPropagation();$("avb").addEventListener("click",()=>{$("tmp").hidden=true;$("tmb").setAttribute("aria-expanded","false")});
 document.addEventListener("click",()=>{$("tmp").hidden=true;$("tmb").setAttribute("aria-expanded","false")});document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("tmp").hidden=true;$("tmb").setAttribute("aria-expanded","false")}});
@@ -583,6 +868,24 @@ if(LM==="register"){const em=val("ae"),code=val("ac"),nm=val("an");if(nm.length<
 bt.disabled=true;enter(await api("POST","/auth/register",{name:nm,username:u1,email:em,password:pw,code:code||undefined,consent:code?$("acons").checked:undefined}));toast("Welcome to Fit Connect");return}
 bt.disabled=true;enter(await api("POST","/auth/login",{username:u1,password:pw}));toast("Welcome back")
 }catch(x){er.textContent=x.message;if(bt)bt.disabled=false}});
+
+/* ---- theme picker: Light / Dark / Auto (saved in this browser) ---- */
+(function(){const SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg>',
+MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>',
+AUTO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>',
+LAB={light:"Light",dark:"Dark",auto:"Auto"},ICO={light:SUN,dark:MOON,auto:AUTO},mq=matchMedia("(prefers-color-scheme: dark)");
+const getp=()=>{try{return localStorage.getItem("fc-theme")||"light"}catch(e){return"light"}};
+function apply(p,save,sys){if(!LAB[p])p="light";if(save){try{localStorage.setItem("fc-theme",p)}catch(e){}}const dark=p==="dark"||(p==="auto"&&(sys!==undefined?sys:mq.matches)),d=document.documentElement;d.dataset.theme=dark?"dark":"light";d.dataset.pref=p;
+$("thi").innerHTML=ICO[p];$("thl").textContent=LAB[p];$("th-l").innerHTML=SUN+"Light";$("th-d").innerHTML=MOON+"Dark";$("th-a").innerHTML=AUTO+"Auto";
+$("thf").innerHTML=dark?SUN:MOON;$("thf").setAttribute("aria-label",dark?"Switch to light theme":"Switch to dark theme");
+document.querySelectorAll("[data-th]").forEach(b=>{const on=b.dataset.th===p;b.classList.toggle("on",on);b.setAttribute("aria-checked",String(on))})}
+$("thb").onclick=e=>{e.stopPropagation();const p=$("thp"),o=p.hidden;p.hidden=!o;$("thb").setAttribute("aria-expanded",String(o));$("pop").hidden=true;$("tmp").hidden=true};
+$("thp").onclick=e=>{e.stopPropagation();const b=e.target.closest("[data-th]");if(b){apply(b.dataset.th,true);toast(LAB[b.dataset.th]+" theme");closeTh()}};
+$("thf").onclick=()=>apply(document.documentElement.dataset.theme==="dark"?"light":"dark",true);
+const closeTh=()=>{$("thp").hidden=true;$("thb").setAttribute("aria-expanded","false")};
+document.addEventListener("click",closeTh);document.addEventListener("keydown",e=>{if(e.key==="Escape")closeTh()});$("avb").addEventListener("click",closeTh);$("tmb").addEventListener("click",closeTh);
+const onSys=e=>{if(getp()==="auto")apply("auto",false,e.matches)};if(mq.addEventListener)mq.addEventListener("change",onSys);else mq.addListener(onSys);const resync=()=>{if(getp()==="auto")apply("auto")};window.addEventListener("focus",resync);document.addEventListener("visibilitychange",resync);
+apply(getp(),false)})();
 (async()=>{try{enter(await api("GET","/me"))}catch(e){showLogin()}})();
 
 </script></body></html>

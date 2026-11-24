@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Fit Connect System (Gym Management Platform)
 
 Flask + SQLite backend, vanilla-JS frontend (your pastel UI), Claude-powered AI (food photos and coach chat) and MediaPipe posture analysis.
@@ -45,3 +46,6 @@ Flask + SQLite backend, vanilla-JS frontend (your pastel UI), Claude-powered AI 
 - Food database (`gym/foods.py`) holds ~60 approximate typical values. Swap in USDA FoodData Central or IFCT for higher accuracy.
 - Payments are a demonstration only - nothing is charged. Reminders are in-app (7, 3, 1 days before expiry and after expiry); no email/SMS yet.
 - Members can export or delete all their data from Membership.
+=======
+# fitconnectsys
+>>>>>>> 450478aee3610e3eb09dac11143f640d20fcaa72
