@@ -1,4 +1,3 @@
-
 """FITCONNECT exercise-specific posture rules.
 Rule-based landmark feedback. Single-image estimates only.
 """
@@ -6,51 +5,54 @@ Rule-based landmark feedback. Single-image estimates only.
 import math
 
 IDX = {
-    "L": {"shoulder": 11, "elbow": 13, "wrist": 15,
-          "hip": 23, "knee": 25, "ankle": 27},
-    "R": {"shoulder": 12, "elbow": 14, "wrist": 16,
-          "hip": 24, "knee": 26, "ankle": 28}
+    "L": {
+        "shoulder": 11, "elbow": 13, "wrist": 15,
+        "hip": 23, "knee": 25, "ankle": 27,
+    },
+    "R": {
+        "shoulder": 12, "elbow": 14, "wrist": 16,
+        "hip": 24, "knee": 26, "ankle": 28,
+    },
 }
 
 VIS = 0.60
 CONF = 0.70
 
 DISCLAIMER = (
-    "AI posture estimate from landmark detection. A single image cannot"
-    "evaluate complete movement or diagnose injuries. Stop if anything hurts"
+    "AI posture estimate from landmark detection. A single image cannot "
+    "evaluate complete movement or diagnose injuries. Stop if anything hurts "
     "and consult a qualified coach."
 )
 
-# Exercise catalogue: Squat intentionally excluded.
 BODY_PART_EXERCISES = {
     "Chest": [
         "Bench press", "Incline dumbbell press", "Chest fly",
-        "Push-up", "Cable crossover", "Pec deck"
+        "Push-up", "Cable crossover", "Pec deck",
     ],
     "Back": [
         "Lat pulldown", "Seated cable row", "Bent-over row",
-        "Single-arm dumbbell row", "Deadlift", "Pull-up"
+        "Single-arm dumbbell row", "Deadlift", "Pull-up",
     ],
     "Shoulders": [
         "Shoulder press", "Lateral raise", "Front raise",
-        "Reverse fly", "Arnold press", "Face pull"
+        "Reverse fly", "Arnold press", "Face pull",
     ],
     "Biceps": [
         "Biceps curl", "Hammer curl", "Preacher curl",
-        "Concentration curl", "Cable curl"
+        "Concentration curl", "Cable curl",
     ],
     "Triceps": [
         "Triceps pushdown", "Overhead triceps extension",
-        "Skull crusher", "Bench dip", "Close-grip push-up"
+        "Skull crusher", "Bench dip", "Close-grip push-up",
     ],
     "Legs": [
-        "Lunge", "Leg press", "Leg extension", "Leg curl",
-        "Romanian deadlift", "Calf raise"
+        "Squat", "Lunge", "Leg press", "Leg extension",
+        "Leg curl", "Romanian deadlift", "Calf raise",
     ],
     "Abs": [
         "Plank", "Crunch", "Bicycle crunch", "Leg raise",
-        "Russian twist", "Mountain climber"
-    ]
+        "Russian twist", "Mountain climber",
+    ],
 }
 
 ALIASES = {
@@ -58,10 +60,12 @@ ALIASES = {
     "bench_fly": "chest_fly",
     "push_up": "pushup",
     "push_ups": "pushup",
+    "close_grip_pushup": "close_grip_push_up",
+    "pullup": "pull_up",
+    "bent_over_row": "bent_over_row",
+    "single_arm_dumbbell_row": "single_arm_dumbbell_row",
     "bicep_curl": "biceps_curl",
     "tricep_pushdown": "triceps_pushdown",
-    "lat_pulldown": "lat_pulldown",
-    "single_arm_dumbbell_row": "single_arm_dumbbell_row"
 }
 
 
@@ -71,48 +75,64 @@ def normalise(exercise):
     return ALIASES.get(ex, ex)
 
 
-# Required visible body landmarks for each exercise.
-NEED = {}
+# Required visible landmarks for each registered exercise.
+NEED = {
+    "bench_press": ["shoulder", "elbow", "wrist", "hip"],
+    "incline_dumbbell_press": ["shoulder", "elbow", "wrist", "hip"],
+    "chest_fly": ["shoulder", "elbow", "wrist", "hip"],
+    "pushup": ["shoulder", "elbow", "wrist", "hip", "ankle"],
+    "cable_crossover": ["shoulder", "elbow", "wrist", "hip"],
+    "pec_deck": ["shoulder", "elbow", "wrist", "hip"],
 
-for exercises in BODY_PART_EXERCISES.values():
-    for exercise in exercises:
-        key = normalise(exercise)
+    "lat_pulldown": ["shoulder", "elbow", "wrist", "hip"],
+    "seated_cable_row": ["shoulder", "elbow", "wrist", "hip"],
+    "bent_over_row": ["shoulder", "elbow", "wrist", "hip", "knee"],
+    "single_arm_dumbbell_row": ["shoulder", "elbow", "wrist", "hip", "knee"],
+    "deadlift": ["shoulder", "hip", "knee", "ankle"],
+    "pull_up": ["shoulder", "elbow", "wrist", "hip"],
 
-        if key in (
-            "lunge", "leg_press", "leg_extension",
-            "leg_curl", "romanian_deadlift", "calf_raise"
-        ):
-            NEED[key] = ["shoulder", "hip", "knee", "ankle"]
+    "shoulder_press": ["shoulder", "elbow", "wrist", "hip"],
+    "lateral_raise": ["shoulder", "elbow", "wrist", "hip"],
+    "front_raise": ["shoulder", "elbow", "wrist", "hip"],
+    "reverse_fly": ["shoulder", "elbow", "wrist", "hip"],
+    "arnold_press": ["shoulder", "elbow", "wrist", "hip"],
+    "face_pull": ["shoulder", "elbow", "wrist", "hip"],
 
-        elif key in (
-            "plank", "mountain_climber", "pushup",
-            "bench_dip", "close_grip_push_up"
-        ):
-            NEED[key] = ["shoulder", "elbow", "wrist", "hip", "ankle"]
+    "biceps_curl": ["shoulder", "elbow", "wrist"],
+    "hammer_curl": ["shoulder", "elbow", "wrist"],
+    "preacher_curl": ["shoulder", "elbow", "wrist"],
+    "concentration_curl": ["shoulder", "elbow", "wrist"],
+    "cable_curl": ["shoulder", "elbow", "wrist"],
 
-        elif key in (
-            "crunch", "bicycle_crunch", "leg_raise",
-            "russian_twist"
-        ):
-            NEED[key] = ["shoulder", "hip", "knee"]
+    "triceps_pushdown": ["shoulder", "elbow", "wrist"],
+    "overhead_triceps_extension": ["shoulder", "elbow", "wrist"],
+    "skull_crusher": ["shoulder", "elbow", "wrist"],
+    "bench_dip": ["shoulder", "elbow", "wrist", "hip"],
+    "close_grip_push_up": ["shoulder", "elbow", "wrist", "hip", "ankle"],
 
-        elif key in (
-            "lateral_raise", "front_raise", "reverse_fly",
-            "shoulder_press", "arnold_press", "face_pull"
-        ):
-            NEED[key] = ["shoulder", "elbow", "wrist", "hip"]
+    "squat": ["shoulder", "hip", "knee", "ankle"],
+    "lunge": ["shoulder", "hip", "knee", "ankle"],
+    "leg_press": ["shoulder", "hip", "knee", "ankle"],
+    "leg_extension": ["hip", "knee", "ankle"],
+    "leg_curl": ["hip", "knee", "ankle"],
+    "romanian_deadlift": ["shoulder", "hip", "knee", "ankle"],
+    "calf_raise": ["hip", "knee", "ankle"],
 
-        else:
-            NEED[key] = ["shoulder", "elbow", "wrist", "hip"]
-
+    "plank": ["shoulder", "elbow", "hip", "ankle"],
+    "crunch": ["shoulder", "hip", "knee"],
+    "bicycle_crunch": ["shoulder", "hip", "knee"],
+    "leg_raise": ["shoulder", "hip", "knee", "ankle"],
+    "russian_twist": ["shoulder", "hip", "knee"],
+    "mountain_climber": ["shoulder", "elbow", "wrist", "hip", "ankle"],
+}
 
 # Kept for compatibility with posture.py imports.
 _EXTRA_NEED = dict(NEED)
 
 TIPS = {
     ex: (
-        "Keep the full required body parts visible, use good lighting "
-        "and position the camera at your side."
+        "Keep all required joints visible in the frame, use good lighting, "
+        "and position the camera so your side or working angle is clear."
     )
     for ex in NEED
 }
@@ -122,12 +142,10 @@ def _ang(a, b, c):
     u = (a[0] - b[0], a[1] - b[1])
     v = (c[0] - b[0], c[1] - b[1])
     n = math.hypot(*u) * math.hypot(*v)
-
     if not n:
         return None
-
     value = (u[0] * v[0] + u[1] * v[1]) / n
-    return math.degrees(math.acos(max(-1, min(1, value))))
+    return math.degrees(math.acos(max(-1.0, min(1.0, value))))
 
 
 def _fail(ex, status, conf, missing, message):
@@ -143,7 +161,7 @@ def _fail(ex, status, conf, missing, message):
         "metrics": {},
         "overlay": {"points": [], "angles": []},
         "single_image": True,
-        "disclaimer": DISCLAIMER
+        "disclaimer": DISCLAIMER,
     }
 
 
@@ -158,7 +176,7 @@ def analyze(ex, lms, w, h):
     if not lms or len(lms) < 29:
         return _fail(
             ex, "insufficient_visibility", 0, ["body"],
-            "No complete pose was detected. " + TIPS[ex]
+            "No complete pose was detected. " + TIPS.get(ex, "")
         )
 
     need = NEED[ex]
@@ -166,53 +184,37 @@ def analyze(ex, lms, w, h):
 
     for side in ("L", "R"):
         visibility = {}
-
         for joint in need:
             index = IDX[side][joint]
-            visibility[joint] = (
-                float(lms[index][2])
-                if index < len(lms) else 0
-            )
+            visibility[joint] = float(lms[index][2]) if index < len(lms) else 0.0
 
         score = sum(visibility.values()) / len(visibility)
-
         if best is None or score > best[0]:
             best = (score, side, visibility)
 
     conf, side, visibility = best
-
-    missing = [
-        joint for joint in need
-        if visibility[joint] < VIS
-    ]
+    missing = [joint for joint in need if visibility[joint] < VIS]
 
     if missing:
         return _fail(
             ex, "insufficient_visibility", conf, missing,
             "These body parts are not clearly visible: "
-            + ", ".join(missing) + ". " + TIPS[ex]
+            + ", ".join(missing) + ". " + TIPS.get(ex, "")
         )
 
     if conf < CONF:
         return _fail(
             ex, "low_confidence", conf, [],
             "Detection confidence is low. Improve lighting and camera "
-            "position. " + TIPS[ex]
+            "position. " + TIPS.get(ex, "")
         )
 
     P = {}
     N = {}
-
     for joint in need:
         index = IDX[side][joint]
-        P[joint] = (
-            float(lms[index][0]) * w,
-            float(lms[index][1]) * h
-        )
-        N[joint] = (
-            float(lms[index][0]),
-            float(lms[index][1])
-        )
+        P[joint] = (float(lms[index][0]) * w, float(lms[index][1]) * h)
+        N[joint] = (float(lms[index][0]), float(lms[index][1]))
 
     issues = []
     corrections = []
@@ -224,186 +226,181 @@ def analyze(ex, lms, w, h):
         issues.append({
             "severity": "ok" if ok else "warn",
             "title": title,
-            "detail": detail
+            "detail": detail,
         })
-
         if not ok and correction:
             corrections.append(correction)
 
     def measure(a, b, c, label):
+        if a not in P or b not in P or c not in P:
+            return None
         value = _ang(P[a], P[b], P[c])
-
         if value is not None:
             metrics[label] = round(value)
             angles.append({
                 "label": f"{round(value)}° {label}",
                 "x": N[b][0],
-                "y": N[b][1]
+                "y": N[b][1],
             })
             observations.append(
-                f"{label.replace('_', ' ').title()} angle: "
-                f"{round(value)}° (estimate)"
+                f"{label.replace('_', ' ').title()} angle: {round(value)}° (estimate)"
             )
-
         return value
 
     # --------------------------------------------------
-    # LEGS: Lunge and leg exercises
+    # LEGS
     # --------------------------------------------------
     if ex in (
-        "lunge", "leg_press", "leg_extension",
+        "squat", "lunge", "leg_press", "leg_extension",
         "leg_curl", "romanian_deadlift", "calf_raise"
     ):
         knee = measure("hip", "knee", "ankle", "knee")
-
         if knee is not None:
-            if knee < 65:
+            if knee < 60:
                 add(
                     False, "Deep knee bend",
-                    "The knee is strongly bent in this image.",
-                    "Use a comfortable range of motion and avoid forcing the position."
+                    "Knee flexion appears deep in this single-frame estimate.",
+                    "Keep movement controlled and avoid forcing deep joint flexion."
                 )
             elif knee > 165:
                 add(
                     True, "Knee nearly extended",
-                    "The knee appears relatively straight in this image."
+                    "Knee joint appears nearly straight in this frame."
                 )
             else:
                 add(
-                    True, "Knee position detected",
-                    "Knee alignment is visible. Full movement cannot be judged from one image."
+                    True, "Knee angle detected",
+                    "Knee alignment is visible in this frame."
                 )
 
-        torso = measure("shoulder", "hip", "knee", "torso")
+        if "shoulder" in P and "hip" in P and "knee" in P:
+            torso = measure("shoulder", "hip", "knee", "torso")
+            if torso is not None and torso < 85:
+                add(
+                    False, "Forward torso lean",
+                    "Upper body shows a strong forward angle in this frame.",
+                    "Brace your core and avoid excessive forward trunk lean."
+                )
 
         observations.append(
-            "Keep your movement controlled and avoid forcing your joints."
+            "Maintain steady control and balanced load distribution."
         )
 
-        if torso is not None and torso < 90:
-            add(
-                False, "Torso position",
-                "Your upper body appears strongly folded.",
-                "Keep your back controlled and use a comfortable range of motion."
-            )
-
     # --------------------------------------------------
-    # UPPER BODY: Chest, back, shoulders, arms
-    # --------------------------------------------------
-    elif "shoulder" in need and "elbow" in need and "wrist" in need:
-        elbow = measure("shoulder", "elbow", "wrist", "elbow")
-
-        if elbow is not None:
-            if ex in ("biceps_curl", "hammer_curl",
-                      "preacher_curl", "concentration_curl",
-                      "cable_curl"):
-                observations.append(
-                    "For curls, keep your upper arm controlled while bending the elbow."
-                )
-                if elbow < 25:
-                    add(
-                        False, "Very closed elbow",
-                        "Your elbow is strongly bent in this image.",
-                        "Use a controlled range and avoid forcing the joint."
-                    )
-                else:
-                    add(
-                        True, "Elbow detected",
-                        "Your elbow position is visible. Movement control needs video analysis."
-                    )
-
-            elif ex in ("lateral_raise", "front_raise", "reverse_fly"):
-                observations.append(
-                    "For raises, avoid swinging your body or shrugging your shoulders."
-                )
-                add(
-                    True, "Arm position detected",
-                    "Shoulder and elbow landmarks are visible."
-                )
-
-            elif ex in ("triceps_pushdown", "overhead_triceps_extension",
-                        "skull_crusher"):
-                observations.append(
-                    "Keep your upper arms controlled and move mainly through the elbows."
-                )
-                add(
-                    True, "Elbow position detected",
-                    "Check that your elbows remain controlled during the movement."
-                )
-
-            else:
-                observations.append(
-                    "Keep wrists controlled and avoid forcing your shoulders or elbows."
-                )
-                add(
-                    True, "Upper-body landmarks detected",
-                    "Arm position is visible. Full exercise technique needs movement analysis."
-                )
-
-        if ex in ("chest_fly", "pec_deck", "cable_crossover"):
-            observations.append(
-                "Keep a slight elbow bend and avoid forcing your arms too far behind your body."
-            )
-
-        if ex in ("bent_over_row", "single_arm_dumbbell_row",
-                  "seated_cable_row", "deadlift",
-                  "romanian_deadlift", "lat_pulldown",
-                  "pull_up", "face_pull"):
-            observations.append(
-                "Keep your back controlled and avoid jerking the weight."
-            )
-
-    # --------------------------------------------------
-    # CORE: Abs and plank exercises
+    # CORE / ABS
     # --------------------------------------------------
     elif ex in (
         "plank", "crunch", "bicycle_crunch",
         "leg_raise", "russian_twist", "mountain_climber"
     ):
         if ex == "plank":
+            ref_joint = "elbow" if "elbow" in P else "wrist"
             body = measure("shoulder", "hip", "ankle", "body_line")
-
             if body is not None:
                 if body >= 165:
                     add(
-                        True, "Body alignment",
-                        "Your shoulder, hip and ankle appear roughly aligned."
+                        True, "Body line aligned",
+                        "Shoulder, hip, and ankle alignment looks steady."
                     )
                 else:
                     add(
-                        False, "Body alignment needs attention",
-                        "Your body line appears bent in this image.",
-                        "Brace your core and keep your shoulders, hips and ankles aligned."
+                        False, "Body alignment drift",
+                        "Shoulder, hip, and ankle line appears bent in this frame.",
+                        "Engage your core and avoid letting your hips sag or pike."
+                    )
+            if ref_joint in P:
+                observations.append(
+                    f"Keep your {ref_joint} stacked under your shoulder for support."
+                )
+        else:
+            torso = measure("shoulder", "hip", "knee", "torso")
+            if torso is not None:
+                add(
+                    True, "Core position detected",
+                    "Trunk and hip landmarks are visible in this frame."
+                )
+            observations.append(
+                "Control the movement with your abs rather than pulling with your neck."
+            )
+
+    # --------------------------------------------------
+    # UPPER BODY: Chest, Back, Shoulders, Biceps, Triceps
+    # --------------------------------------------------
+    else:
+        if "shoulder" in P and "elbow" in P and "wrist" in P:
+            elbow = measure("shoulder", "elbow", "wrist", "elbow")
+            if elbow is not None:
+                if ex in (
+                    "biceps_curl", "hammer_curl", "preacher_curl",
+                    "concentration_curl", "cable_curl"
+                ):
+                    if elbow < 25:
+                        add(
+                            False, "Extreme elbow flexion",
+                            "Elbow angle is tightly closed in this frame.",
+                            "Use a controlled range of motion without forcing the joint."
+                        )
+                    else:
+                        add(
+                            True, "Elbow flexion detected",
+                            "Elbow angle is visible in this frame."
+                        )
+                    observations.append(
+                        "Keep your upper arm steady and avoid swinging the torso."
                     )
 
-            observations.append(
-                "Keep your elbows under your shoulders when performing an elbow plank."
-            )
+                elif ex in (
+                    "triceps_pushdown", "overhead_triceps_extension",
+                    "skull_crusher", "bench_dip", "close_grip_push_up"
+                ):
+                    add(
+                        True, "Elbow extension angle detected",
+                        "Elbow position is visible in this frame."
+                    )
+                    observations.append(
+                        "Keep elbows controlled and avoid flaring or drifting outward."
+                    )
 
-        else:
+                elif ex in ("lateral_raise", "front_raise", "reverse_fly"):
+                    add(
+                        True, "Arm position detected",
+                        "Shoulder and elbow landmarks are visible in this frame."
+                    )
+                    observations.append(
+                        "Raise smoothly without shrugging your shoulders or swinging."
+                    )
+
+                else:
+                    add(
+                        True, "Upper-body alignment detected",
+                        "Key upper-body joints are visible in this frame."
+                    )
+                    observations.append(
+                        "Keep wrists neutral and control both concentric and eccentric phases."
+                    )
+
+        if "shoulder" in P and "hip" in P and "knee" in P:
             measure("shoulder", "hip", "knee", "torso")
 
+        if ex in (
+            "bent_over_row", "single_arm_dumbbell_row", "seated_cable_row",
+            "deadlift", "lat_pulldown", "pull_up", "face_pull"
+        ):
             observations.append(
-                "Keep your core engaged and avoid pulling your neck during abdominal exercises."
+                "Keep your spine neutral and avoid jerking or rounding your back."
             )
 
-            add(
-                True, "Core landmarks detected",
-                "Your body position is visible. Complete movement quality needs video analysis."
-            )
-
-    # Fallback for any registered exercise.
     if not issues:
         add(
-            True, "Posture landmarks detected",
-            "Required body landmarks are visible. Follow controlled movement technique."
+            True, "Landmarks detected",
+            "Required joints are visible for this exercise estimate."
         )
 
     points = [
         {
             "id": i,
             "x": float(lms[i][0]),
-            "y": float(lms[i][1])
+            "y": float(lms[i][1]),
         }
         for i in range(11, 29)
         if i < len(lms) and float(lms[i][2]) >= VIS
@@ -421,8 +418,8 @@ def analyze(ex, lms, w, h):
         "metrics": metrics,
         "overlay": {
             "points": points,
-            "angles": angles
+            "angles": angles,
         },
         "single_image": True,
-        "disclaimer": DISCLAIMER
+        "disclaimer": DISCLAIMER,
     }
